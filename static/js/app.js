@@ -42,7 +42,35 @@ d3.json("data/samples.json").then(function(data) {
         let demo=d3.select("#sample-metadata");
         for (const [key, value] of Object.entries(meta[0])) {
             demo.append('p').text(`${key}: ${value}`);
-        }
+
+        };
+        var data3 = [
+            {
+              domain: { x: [0, 1], y: [0, 1] },
+              title: { text: "Scrubs Per Week" },
+              type: "indicator",
+              mode: "gauge+number+delta",
+              value: meta[0].wfreq,
+              gauge: {
+                axis: { range: [0,10] },
+                steps: [
+                  { range: [0, 1], color: "#fafa6e" },
+                  { range: [1, 2], color: "#d7f171" },
+                  { range: [2, 3], color: "#b5e877" },
+                  { range: [3, 4], color: "#95dd7d" },
+                  { range: [4, 5], color: "#77d183" },
+                  { range: [5, 6], color: "#77d183" },
+                  { range: [6, 7], color: "#5bc489" },
+                  { range: [7, 8], color: "#3fb78d" },
+                  { range: [8, 9], color: "#23aa8f" },
+                  { range: [9, 10], color: "#008d8c" }
+                ],
+              }
+            }
+          ];
+          
+          var layout = { width: 600, height: 450, margin: { t: 0, b: 0 } };
+          Plotly.newPlot('gauge', data3, layout);
 
     };
 
@@ -73,6 +101,8 @@ d3.json("data/samples.json").then(function(data) {
         for (const [key, value] of Object.entries(meta[id])) {
             demo.append('p').text(`${key}: ${value}`);
         }
+
+          Plotly.restyle('gauge', 'value', meta[id].wfreq);
     }
 });
 
